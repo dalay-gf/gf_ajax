@@ -1,6 +1,8 @@
 <?php 
 
 define('GF_AJAX_CART_ID_COUNTER_CONTAINER', 'cart-item-counter');
+define('GF_AJAX_CART_COUNTER_CONTAINER_CLASS', 'gf-cart-items-count');
+
 /**
  * @file
  * GF Ajax Features - Core functions.
@@ -73,7 +75,10 @@ function gf_ajax_ubercart_add_to_cart(){
     $commands[] = ajax_command_prepend($content_container, theme('status_messages'));
   }
   // Обновляем счетчик содержимого корзины.
-  $commands[] = ajax_command_html('#' . GF_AJAX_CART_ID_COUNTER_CONTAINER, count(uc_cart_get_contents()));
+  $counter = count(uc_cart_get_contents());
+  $counter_container = '#' . GF_AJAX_CART_ID_COUNTER_CONTAINER;
+  $counter_container .= ', .' . GF_AJAX_CART_COUNTER_CONTAINER_CLASS;
+  $commands[] = ajax_command_html($counter_container, $counter );
 
   // Исправляем проблему, когда при добавлении в корзину товара через
   // ajax в последние посещенные url-ы уберкарта заноситься бесполезный линк на 
