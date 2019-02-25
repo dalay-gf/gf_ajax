@@ -34,7 +34,7 @@ function gf_ajax_form_alter(&$form, $form_state, $form_id) {
  * в карзину(продукты уже добавлены).
  *
  */
-function gf_ajax_ubercart_add_to_cart($form, $form_state){
+function gf_ajax_ubercart_add_to_cart(){
   $commands = array();
   // TODO: реализовать возможность задавать контейнеры
   // в DOM`е страницы.
