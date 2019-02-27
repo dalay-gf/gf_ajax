@@ -75,7 +75,8 @@ function gf_ajax_ubercart_add_to_cart(){
     $commands[] = ajax_command_prepend($content_container, theme('status_messages'));
   }
   // Обновляем счетчик содержимого корзины.
-  $counter = count(uc_cart_get_contents());
+  // $counter = count(uc_cart_get_contents());
+  $counter = uc_cart_get_total_qty();
   $counter_container = '#' . GF_AJAX_CART_ID_COUNTER_CONTAINER;
   $counter_container .= ', .' . GF_AJAX_CART_COUNTER_CONTAINER_CLASS;
   $commands[] = ajax_command_html($counter_container, $counter );
