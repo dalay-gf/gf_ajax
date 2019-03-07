@@ -91,3 +91,14 @@ function gf_ajax_ubercart_add_to_cart(){
     '#commands' => $commands,
   );
 }
+
+
+/**
+ * Implements hook_preprocess_pager().
+ */
+function gf_ajax_preprocess_pager(&$vars) {
+  // Хак для ajax-пейджера. Для добавления перемещений
+  // в историю переходов браузера.
+  $path = drupal_get_path('module', 'gf_ajax');
+  drupal_add_js($path . '/js/ajax_pager_history.js', ['weight' => 1]);
+}
