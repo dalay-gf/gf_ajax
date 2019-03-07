@@ -4,3 +4,5 @@ package = Giorgio-Ferretti
 core = 7.x
 
 dependencies[] = uc_cart
+
+scripts[] = js/ajax_pager_history.js
