@@ -2,6 +2,7 @@
 
 define('GF_AJAX_CART_ID_COUNTER_CONTAINER', 'cart-item-counter');
 define('GF_AJAX_CART_COUNTER_CONTAINER_CLASS', 'gf-cart-items-count');
+define('GF_AJAX_VIEWS_FILTER_JS_SETTINGS_NAME', 'gf_catalog_filter');
 
 /**
  * @file
@@ -101,4 +102,32 @@ function gf_ajax_preprocess_pager(&$vars) {
   // в историю переходов браузера.
   $path = drupal_get_path('module', 'gf_ajax');
   drupal_add_js($path . '/js/ajax_pager_history.js', ['weight' => 1]);
+}
+
+
+/**
+ * Implements hook_form_views_exposed_form_alter().
+ */
+function gf_ajax_form_views_exposed_form_alter(&$form, &$form_state){
+ 
+  if ($form['#id'] == 'views-exposed-form-products-main-catalog') {
+    $form['#attached']['js'][] = drupal_get_path('module', 'gf_ajax') . '/js/gf_ajax_views_exp_filter.js';
+    $settings = [];
+    foreach($form['#info'] as $filter) {
+      $settings[GF_AJAX_VIEWS_FILTER_JS_SETTINGS_NAME][] = $filter['value'];
+    }
+    drupal_add_js($settings, 'setting');
+  }
+}
+
+/**
+ * Implements template_preprocess_views_exposed_form().
+ */
+function gf_ajax_preprocess_views_exposed_form(&$variables) {
+  if ($variables['form']['#id'] == 'views-exposed-form-products-main-catalog' && 
+    !$variables['logged_in']) {
+    // Убираем для анонимов фильтр по цене (он у нас заряжен на оптовую, которую
+    // анонимы все-равно не видят).
+    unset($variables['widgets']['filter-price']);
+  }
 }
