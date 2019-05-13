@@ -11,7 +11,6 @@
             for (let filter of viewsExpFilters) {
                 let selected;
                 let filterVal;
-                // console.log(filter);
                 if (filter == 'price') {
                     selected = $('#edit-price-min');
                     filterVal = selected.val() + '-' + $('#edit-price-max').val();
@@ -32,7 +31,7 @@
 
             if (filterArr.length) {
                 msgString += '<span>' + filterArr.join(', ') + '</span>';
-                $('.second-line','#views-exposed-form-products-main-catalog').html(msgString);
+                $('#exp-filter-result-box','#views-exposed-form-products-main-catalog').html(msgString);
             }
         }
     };
